@@ -3,18 +3,29 @@
 {% block content %}
 <body>
     <div class="container">
-        <form action="POST">
-            <div class="row">
-                <div class="col-md-6">
+        <form action="{% url 'cadastro_usuario' %}" method="POST">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <div class="col-md-3">
                     <label for="id_usuario">Usuário</label>
-                    <input id="id_usuario" class="form-control" type="text" placeholder="Digite seu usuário" required>
+                    <input id="id_usuario" name="usuario" class="form-control" type="text" placeholder="Digite seu usuário" required>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <label for="id_email">E-mail</label>
-                    <input id="id_email" class="form-control" type="text" placeholder="Digite seu E-mail" required>
+                    <input id="id_email" name="email" class="form-control" type="text" placeholder="Digite seu E-mail" required>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="id_password">Senha</label>
+                    <input id="id_password" name="password" class="form-control" type="password" placeholder="Digite sua Senha" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="id_passoword_confirm">Senha</label>
+                    <input id="id_passoword_confirm" name="password_confirm" class="form-control" type="password" placeholder="Confirme sua senha" required>
                 </div>
             </div>
+            <input class="btn btn-primary" type="submit" value="Submit">
         </form>
     </div>
 </body>
