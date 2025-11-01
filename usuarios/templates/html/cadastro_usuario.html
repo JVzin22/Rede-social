@@ -3,6 +3,15 @@
 {% block content %}
 <body>
     <div class="container">
+        {% if messages %}
+            <ul class="messages" style="list-style: none; padding: 10px; border: 1px solid #ccc;">
+                {% for message in messages %}
+                <li>
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <form action="{% url 'cadastro_usuario' %}" method="POST">
             {% csrf_token %}
             <div class="row mb-3">
@@ -21,7 +30,7 @@
                     <input id="id_password" name="password" class="form-control" type="password" placeholder="Digite sua Senha" required>
                 </div>
                 <div class="col-md-3">
-                    <label for="id_passoword_confirm">Senha</label>
+                    <label for="id_passoword_confirm">Confirma a senha</label>
                     <input id="id_passoword_confirm" name="password_confirm" class="form-control" type="password" placeholder="Confirme sua senha" required>
                 </div>
             </div>

@@ -17,15 +17,39 @@ def cadastro_usuario(request):
         if password != password_confirm:
             messages.error(request, "As senhas não coincidem.")
             return redirect('cadastro_usuario')
+
+        if existe_usuario_nome:
+            messages.error(request, "Usuário ja cadastrado.")
+            return redirect('cadastro_usuario')
+
+        if existe_usuario_email:
+            messages.error(request, "E-mail ja cadastrado.")
+            return redirect('cadastro_usuario')
+
         try:
             validate_password(password)
         except Exception as e:
+            print(e)
             for error in e:
                 messages.error(request, error)
             return redirect('cadastro_usuario')
 
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password)
+            user.save()
+
+            messages.success(request, "Usuário cadastrado com sucesso.")
+            return redirect('cadastro_usuario')
+        except Exception as e:
+            print(e)
+            messages.error(request, "Erro ao cadastrar usuário.")
+            return redirect('cadastro_usuario')
+
     else:
         return render(request, 'cadastro_usuario.html')
+
+def listagem_usuario(request):
+    return render(request, 'listagem_usuario.html')
 
 def login(request):
     return render(request, 'login.html')
